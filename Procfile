@@ -1,0 +1,1 @@
+web: go run -tags json ./src/github.com/v2ray/v2ray-core/release/server/main.go --config=./src/github.com/v2ray/v2ray-core/release/server/config.json
