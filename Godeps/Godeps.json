@@ -1,7 +1,8 @@
 {
+    "ImportPath": "github.com/qinqin65/customedV2Ray",
     "GoVersion": "go1.6",
     "Packages": [
-    ],
+         "./..."
     "Deps": [
         {
         }
