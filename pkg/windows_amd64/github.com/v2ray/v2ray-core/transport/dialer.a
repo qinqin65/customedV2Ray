@@ -1,0 +1,134 @@
+!<arch>
+__.PKGDEF       0           0     0     644     14744     `
+go object windows amd64 go1.6 X:none
+build id "3665edc1833f259488b717b260cd155fa78489f1"
+
+$$
+package dialer
+	import errors "errors"
+	import net "net"
+	import time "time"
+	import net "github.com/v2ray/v2ray-core/common/net"
+	var @"".ErrorInvalidHost error
+	type @"net".Addr interface { Network() (? string); String() (? string) }
+	type @"time".zone struct { @"time".name string; @"time".offset int; @"time".isDST bool }
+	type @"time".zoneTrans struct { @"time".when int64; @"time".index uint8; @"time".isstd bool; @"time".isutc bool }
+	type @"time".Location struct { @"time".name string; @"time".zone []@"time".zone; @"time".tx []@"time".zoneTrans; @"time".cacheStart int64; @"time".cacheEnd int64; @"time".cacheZone *@"time".zone }
+	func (@"time".lÂ·2 *@"time".Location "esc:0x22") String () (? string)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x1") @"time".firstZoneUsed () (? bool)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x12") @"time".get () (? *@"time".Location)
+	func (@"time".lÂ·6 *@"time".Location "esc:0x32") @"time".lookup (@"time".secÂ·7 int64) (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".isDSTÂ·3 bool, @"time".startÂ·4 int64, @"time".endÂ·5 int64)
+	func (@"time".lÂ·2 *@"time".Location "esc:0x1") @"time".lookupFirstZone () (? int)
+	func (@"time".lÂ·4 *@"time".Location "esc:0x1") @"time".lookupName (@"time".nameÂ·5 string "esc:0x1", @"time".unixÂ·6 int64) (@"time".offsetÂ·1 int, @"time".isDSTÂ·2 bool, @"time".okÂ·3 bool)
+	type @"time".Duration int64
+	func (@"time".dÂ·2 @"time".Duration) Hours () (? float64) { var @"time".hourÂ·3 @"time".Duration; ; @"time".hourÂ·3 = @"time".dÂ·2 / @"time".Duration(0x34630b8a000); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x34630b8a000); return float64(@"time".hourÂ·3) + float64(@"time".nsecÂ·4) * float64(8190022623310637111963488201822504381538623676021880892417778544696899264837610290203272971060556344039023584360473938041055625214280336402169897364226048p-553) }
+	func (@"time".dÂ·2 @"time".Duration) Minutes () (? float64) { var @"time".minÂ·3 @"time".Duration; ; @"time".minÂ·3 = @"time".dÂ·2 / @"time".Duration(0xdf8475800); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0xdf8475800); return float64(@"time".minÂ·3) + float64(@"time".nsecÂ·4) * float64(7678146209353722106395056769533233877065564876941352542109479049699919628723768656821910653339403201031675627614471533358284117434246264392176261853609984p-547) }
+	func (@"time".dÂ·2 @"time".Duration) Nanoseconds () (? int64) { return int64(@"time".dÂ·2) }
+	func (@"time".dÂ·2 @"time".Duration) Seconds () (? float64) { var @"time".secÂ·3 @"time".Duration; ; @"time".secÂ·3 = @"time".dÂ·2 / @"time".Duration(0x3b9aca00); var @"time".nsecÂ·4 @"time".Duration; ; @"time".nsecÂ·4 = @"time".dÂ·2 % @"time".Duration(0x3b9aca00); return float64(@"time".secÂ·3) + float64(@"time".nsecÂ·4) * float64(7198262071269114660816079141112770740375861891461678802759824945047098083990024106014198994535558872472104883612039846078596891298747423852523262413111296p-541) }
+	func (@"time".dÂ·2 @"time".Duration) String () (? string)
+	type @"time".Month int
+	func (@"time".mÂ·2 @"time".Month) String () (? string) { return @"time".months[@"time".mÂ·2 - @"time".Month(0x1)] }
+	type @"time".Weekday int
+	func (@"time".dÂ·2 @"time".Weekday) String () (? string) { return @"time".days[@"time".dÂ·2] }
+	type @"time".Time struct { @"time".sec int64; @"time".nsec int32; @"time".loc *@"time".Location }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Add (@"time".dÂ·3 @"time".Duration) (? @"time".Time) { @"time".tÂ·2.@"time".sec += int64(@"time".dÂ·3 / @"time".Duration(0x3b9aca00)); var @"time".nsecÂ·4 int32; ; @"time".nsecÂ·4 = int32(@"time".tÂ·2.@"time".nsec) + int32(@"time".dÂ·3 % @"time".Duration(0x3b9aca00)); if @"time".nsecÂ·4 >= int32(0x3b9aca00) { @"time".tÂ·2.@"time".sec++; @"time".nsecÂ·4 -= int32(0x3b9aca00) } else { if @"time".nsecÂ·4 < int32(0x0) { @"time".tÂ·2.@"time".sec--; @"time".nsecÂ·4 += int32(0x3b9aca00) } }; @"time".tÂ·2.@"time".nsec = @"time".nsecÂ·4; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") AddDate (@"time".yearsÂ·3 int, @"time".monthsÂ·4 int, @"time".daysÂ·5 int) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") After (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec > @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec > @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") AppendFormat (@"time".bÂ·3 []byte "esc:0x1a", @"time".layoutÂ·4 string "esc:0x9") (? []byte)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Before (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec < @"time".uÂ·3.@"time".sec || @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec < @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·4 @"time".Time "esc:0x1") Clock () (@"time".hourÂ·1 int, @"time".minÂ·2 int, @"time".secÂ·3 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x1") Date () (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Day () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Equal (@"time".uÂ·3 @"time".Time "esc:0x1") (? bool) { return @"time".tÂ·2.@"time".sec == @"time".uÂ·3.@"time".sec && @"time".tÂ·2.@"time".nsec == @"time".uÂ·3.@"time".nsec }
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") Format (@"time".layoutÂ·3 string "esc:0x9") (? string)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") GobDecode (@"time".dataÂ·3 []byte "esc:0x1") (? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") GobEncode () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Hour () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") ISOWeek () (@"time".yearÂ·1 int, @"time".weekÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") In (@"time".locÂ·3 *@"time".Location "esc:0x12") (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") IsZero () (? bool) { return @"time".tÂ·2.@"time".sec == int64(0x0) && @"time".tÂ·2.@"time".nsec == int32(0x0) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Local () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".Local; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Location () (? *@"time".Location) { var @"time".lÂ·3 *@"time".Location; ; @"time".lÂ·3 = @"time".tÂ·2.@"time".loc; if @"time".lÂ·3 == nil { @"time".lÂ·3 = @"time".UTC }; return @"time".lÂ·3 }
+	func (@"time".tÂ·3 @"time".Time "esc:0x1") MarshalBinary () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x9") MarshalJSON () (? []byte, ? error)
+	func (@"time".tÂ·3 @"time".Time "esc:0x9") MarshalText () (? []byte, ? error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Minute () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Month () (? @"time".Month)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Nanosecond () (? int) { return int(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Round (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Second () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x9") String () (? string)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Sub (@"time".uÂ·3 @"time".Time "esc:0x1") (? @"time".Duration)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") Truncate (@"time".dÂ·3 @"time".Duration) (? @"time".Time)
+	func (@"time".tÂ·2 @"time".Time "esc:0x12") UTC () (? @"time".Time) { @"time".tÂ·2.@"time".loc = @"time".UTC; return @"time".tÂ·2 }
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Unix () (? int64) { return @"time".tÂ·2.@"time".sec + int64(-0xe7791f700) }
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") UnixNano () (? int64) { return (@"time".tÂ·2.@"time".sec + int64(-0xe7791f700)) * int64(0x3b9aca00) + int64(@"time".tÂ·2.@"time".nsec) }
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalBinary (@"time".dataÂ·3 []byte "esc:0x1") (? error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalJSON (@"time".dataÂ·3 []byte "esc:0x1") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 *@"time".Time "esc:0x1") UnmarshalText (@"time".dataÂ·3 []byte "esc:0x1") (@"time".errÂ·1 error)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Weekday () (? @"time".Weekday)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") Year () (? int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") YearDay () (? int)
+	func (@"time".tÂ·3 @"time".Time "esc:0x32") Zone () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int)
+	func (@"time".tÂ·2 @"time".Time "esc:0x1") @"time".abs () (? uint64)
+	func (@"time".tÂ·5 @"time".Time "esc:0x1") @"time".date (@"time".fullÂ·6 bool) (@"time".yearÂ·1 int, @"time".monthÂ·2 @"time".Month, @"time".dayÂ·3 int, @"time".ydayÂ·4 int)
+	func (@"time".tÂ·4 @"time".Time "esc:0x32") @"time".locabs () (@"time".nameÂ·1 string, @"time".offsetÂ·2 int, @"time".absÂ·3 uint64)
+	type @"net".Conn interface { Close() (? error); LocalAddr() (? @"net".Addr); Read(@"net".b []byte) (@"net".n int, @"net".err error); RemoteAddr() (? @"net".Addr); SetDeadline(@"net".t @"time".Time) (? error); SetReadDeadline(@"net".t @"time".Time) (? error); SetWriteDeadline(@"net".t @"time".Time) (? error); Write(@"net".b []byte) (@"net".n int, @"net".err error) }
+	type @"net".IPMask []byte
+	func (@"net".mÂ·3 @"net".IPMask "esc:0x1") Size () (@"net".onesÂ·1 int, @"net".bitsÂ·2 int)
+	func (@"net".mÂ·2 @"net".IPMask "esc:0x1") String () (? string)
+	type @"net".IP []byte
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") DefaultMask () (? @"net".IPMask)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") Equal (@"net".xÂ·3 @"net".IP "esc:0x1") (? bool)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") IsGlobalUnicast () (? bool)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") IsInterfaceLocalMulticast () (? bool) { return len(@"net".ipÂ·2) == int(0x10) && @"net".ipÂ·2[int(0x0)] == byte(0xff) && @"net".ipÂ·2[int(0x1)] & byte(0xf) == byte(0x1) }
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") IsLinkLocalMulticast () (? bool)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") IsLinkLocalUnicast () (? bool)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") IsLoopback () (? bool)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") IsMulticast () (? bool)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") IsUnspecified () (? bool)
+	func (@"net".ipÂ·3 @"net".IP "esc:0x1") MarshalText () (? []byte, ? error)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") Mask (@"net".maskÂ·3 @"net".IPMask "esc:0x1") (? @"net".IP)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x1") String () (? string)
+	func (@"net".ipÂ·2 @"net".IP "esc:0x12") To16 () (? @"net".IP) { if len(@"net".ipÂ·2) == int(0x4) { return @"net".IPv4(@"net".ipÂ·2[int(0x0)], @"net".ipÂ·2[int(0x1)], @"net".ipÂ·2[int(0x2)], @"net".ipÂ·2[int(0x3)]) }; if len(@"net".ipÂ·2) == int(0x10) { return @"net".ipÂ·2 }; return nil }
+	func (@"net".ipÂ·2 @"net".IP "esc:0x12") To4 () (? @"net".IP)
+	func (@"net".ipÂ·2 *@"net".IP "esc:0x1") UnmarshalText (@"net".textÂ·3 []byte "esc:0x1") (? error)
+	type @"github.com/v2ray/v2ray-core/common/net".Address interface { Domain() (? string); Equals(? @"github.com/v2ray/v2ray-core/common/net".Address) (? bool); IP() (? @"net".IP); IsDomain() (? bool); IsIPv4() (? bool); IsIPv6() (? bool); String() (? string) }
+	type @"github.com/v2ray/v2ray-core/common/net".NetworkList []@"github.com/v2ray/v2ray-core/common/net".Network
+	func (@"github.com/v2ray/v2ray-core/common/net".thisÂ·2 *@"github.com/v2ray/v2ray-core/common/net".NetworkList "esc:0x1") HasNetwork (@"github.com/v2ray/v2ray-core/common/net".networkÂ·3 @"github.com/v2ray/v2ray-core/common/net".Network "esc:0x1") (? bool)
+	type @"github.com/v2ray/v2ray-core/common/net".Network string
+	func (@"github.com/v2ray/v2ray-core/common/net".thisÂ·2 @"github.com/v2ray/v2ray-core/common/net".Network) AsList () (? *@"github.com/v2ray/v2ray-core/common/net".NetworkList) { var @"github.com/v2ray/v2ray-core/common/net".listÂ·3 @"github.com/v2ray/v2ray-core/common/net".NetworkList; ; @"github.com/v2ray/v2ray-core/common/net".listÂ·3 = @"github.com/v2ray/v2ray-core/common/net".NetworkList(([]@"github.com/v2ray/v2ray-core/common/net".Network{ int(0x0):@"github.com/v2ray/v2ray-core/common/net".thisÂ·2 })); return &@"github.com/v2ray/v2ray-core/common/net".listÂ·3 }
+	type @"github.com/v2ray/v2ray-core/common/net".Port uint16
+	func (@"github.com/v2ray/v2ray-core/common/net".thisÂ·2 @"github.com/v2ray/v2ray-core/common/net".Port) Bytes () (? []byte) { return @"github.com/v2ray/v2ray-core/common/serial".Uint16Literal(@"github.com/v2ray/v2ray-core/common/net".thisÂ·2).Bytes() }
+	func (@"github.com/v2ray/v2ray-core/common/net".thisÂ·2 @"github.com/v2ray/v2ray-core/common/net".Port) String () (? string)
+	func (@"github.com/v2ray/v2ray-core/common/net".thisÂ·2 @"github.com/v2ray/v2ray-core/common/net".Port) Value () (? uint16) { return uint16(@"github.com/v2ray/v2ray-core/common/net".thisÂ·2) }
+	type @"github.com/v2ray/v2ray-core/common/net".Destination interface { Address() (? @"github.com/v2ray/v2ray-core/common/net".Address); Equals(? @"github.com/v2ray/v2ray-core/common/net".Destination) (? bool); IsTCP() (? bool); IsUDP() (? bool); NetAddr() (? string); Network() (? @"github.com/v2ray/v2ray-core/common/net".Network); Port() (? @"github.com/v2ray/v2ray-core/common/net".Port); String() (? string) }
+	func @"".Dial (@"".destÂ·3 @"github.com/v2ray/v2ray-core/common/net".Destination) (? @"net".Conn, ? error)
+	func @"".init ()
+	var @"time".months [12]string
+	var @"time".days [7]string
+	var @"time".Local *@"time".Location
+	var @"time".UTC *@"time".Location
+	func @"net".IPv4 (@"net".aÂ·2 byte, @"net".bÂ·3 byte, @"net".cÂ·4 byte, @"net".dÂ·5 byte) (? @"net".IP) { var @"net".pÂ·6 @"net".IP; ; @"net".pÂ·6 = make(@"net".IP, 0x10); copy(@"net".pÂ·6, @"net".v4InV6Prefix); @"net".pÂ·6[int(0xc)] = @"net".aÂ·2; @"net".pÂ·6[int(0xd)] = @"net".bÂ·3; @"net".pÂ·6[int(0xe)] = @"net".cÂ·4; @"net".pÂ·6[int(0xf)] = @"net".dÂ·5; return @"net".pÂ·6 }
+	import serial "github.com/v2ray/v2ray-core/common/serial" // indirect
+	type @"github.com/v2ray/v2ray-core/common/serial".Uint16Literal uint16
+	func (@"github.com/v2ray/v2ray-core/common/serial".thisÂ·2 @"github.com/v2ray/v2ray-core/common/serial".Uint16Literal) Bytes () (? []byte) { return ([]byte{ int(0x0):byte(@"github.com/v2ray/v2ray-core/common/serial".thisÂ·2 >> uint(0x8)), int(0x1):byte(@"github.com/v2ray/v2ray-core/common/serial".thisÂ·2) }) }
+	func (@"github.com/v2ray/v2ray-core/common/serial".thisÂ·2 @"github.com/v2ray/v2ray-core/common/serial".Uint16Literal) String () (? string)
+	func (@"github.com/v2ray/v2ray-core/common/serial".thisÂ·2 @"github.com/v2ray/v2ray-core/common/serial".Uint16Literal) Value () (? uint16) { return uint16(@"github.com/v2ray/v2ray-core/common/serial".thisÂ·2) }
+	var @"net".v4InV6Prefix []byte
+
+$$
+_go_.o          0           0     0     644     6240      `
+go object windows amd64 go1.6 X:none
+
+!
+  go13lderrors.a
+net.atime.aPgithub.com/v2ray/v2ray-core/common/net.a ş"".Dial      eH‹%(   H‹‰    H„$`ÿÿÿH;A†  Hì   1ÛH‰œ$8  H‰œ$@  1ÛH‰œ$H  H‰œ$P  H‹œ$0  H‰$H‹œ$(  H‹[ ÿÓH‹L$H‹D$H‰„$°   H‰$H‰Œ$¨   H‹Y8ÿÓH‹”$0  H‹Œ$(  ¶\$€û „E  H¼$Ğ   WÀHƒÇĞè    Hœ$Ğ   H‰ßHƒû „  WÀHƒÇĞè    H½ XGø   H‰+HÇÅ   @ˆk0H‰\$PH    H‰\$xHÇ„$€      H‰$H‹Y8ÿÓ¶\$€û „·   H    H‰\$xHÇ„$€      H‹œ$0  H‰$H‹œ$(  H‹[@ÿÓH‹L$H‹D$H‹\$PH‰$H‹\$xH‰\$H‹œ$€   H‰\$H‰Œ$ˆ   H‰L$H‰„$   H‰D$ è    H‹l$(H‹T$0H‹L$8H‹D$@H‰¬$8  H‰”$@  H‰Œ$H  H‰„$P  HÄ   Ãé\ÿÿÿ‰éäşÿÿH‰$H‹Y ÿÓH‹L$H‹D$H‰„$°   H‰$H‰Œ$¨   H‹Y0ÿÓH‹\$H‰œ$¸   H‹\$H‰œ$À   H‹\$H‰œ$È   H‹œ$0  H‰$H‹œ$(  H‹[0ÿÓH‹”$0  H‹Œ$(  ¶\$€û „_  H‰$H‹YPÿÓH·\$f‰\$NH    H‰$è    H‹D$1íH‰(H‰hH‰hH‰hH‰h H‰h(H‰D$`H‹¬$À   H‰hH‹¬$È   H‰hH‹¬$¸   €=     …Ò   H‰(H·l$NH‰hH    H‰$HÇD$   HÇD$    H‰D$è    H‹\$ H‰\$pH‹\$(H‰œ$˜   H‹\$0H‰œ$    H‹    1íH9èt=H‹\$pH‰œ$@  H‰„$8  H‹œ$˜   H‰œ$H  H‹œ$    H‰œ$P  HÄ   ÃH    H‰$H    H‰\$H    H‰\$è    H‹D$ë”H‰$H‰l$è    H‹D$`éÿÿÿH‰$H‹YPÿÓH·\$f‰\$NH    H‰$è    H‹D$1íH‰(H‰hH‰hH‰hH‰h H‰h(H‰D$XH‹¬$À   H‰hH‹¬$È   H‰hH‹¬$¸   €=     …Ò   H‰(H·l$NH‰hH    H‰$HÇD$   HÇD$    H‰D$è    H‹\$ H‰\$hH‹\$(H‰œ$˜   H‹\$0H‰œ$    H‹    1íH9èt=H‹\$hH‰œ$@  H‰„$8  H‹œ$˜   H‰œ$H  H‹œ$    H‰œ$P  HÄ   ÃH    H‰$H    H‰\$H    H‰\$è    H‹D$ë”H‰$H‰l$è    H‹D$Xéÿÿÿè    é½úÿÿÌÌÌÌÌÌÌÌÌÌÌÌÌL      Ê       ’       òª  runtime.duffzero   ´ª  runtime.duffzero   ü  go.string."tcp"   ¶       Ü  go.string."udp"   ¶       Ä  $net.(*Dialer).Dial   ì       ´       ¶	       †
+       ¦
+   type.net.TCPAddr   ¸
+  "runtime.newobject   Ê (runtime.writeBarrier   €  go.string."tcp"   À  net.DialTCP   –  :go.itab.*net.TCPConn.net.Conn   ¬  "type.*net.TCPConn   Â  type.net.Conn   Ú  :go.itab.*net.TCPConn.net.Conn   î   runtime.typ2Itab   ˜  .runtime.writebarrierptr   Ä       ä   type.net.UDPAddr   ö  "runtime.newobject   ˆ (runtime.writeBarrier   ¾  go.string."udp"   ş  net.DialUDP   Ô  :go.itab.*net.UDPConn.net.Conn   ê  "type.*net.UDPConn   €  type.net.Conn   ˜  :go.itab.*net.UDPConn.net.Conn   ¬   runtime.typ2Itab   Ö  .runtime.writebarrierptr   ô  0runtime.morestack_noctxt   `À  *"".autotmp_0019  type.*uint8 "".autotmp_0018 "type.*net.UDPAddr "".autotmp_0016 ÿ"type.*net.TCPAddr "".autotmp_0015 Ÿtype.net.Dialer "".autotmp_0013  `type.github.com/v2ray/v2ray-core/common/net.Port "".autotmp_0012  type.error "".autotmp_0011 ï"type.*net.UDPConn "".autotmp_0010 £`type.github.com/v2ray/v2ray-core/common/net.Port "".autotmp_0009  type.error "".autotmp_0008 ß"type.*net.TCPConn "".autotmp_0007  type.bool "".autotmp_0006  ftype.github.com/v2ray/v2ray-core/common/net.Address "".autotmp_0005 ¯type.string "".autotmp_0004 type.error "".autotmp_0000 ïftype.github.com/v2ray/v2ray-core/common/net.Address 
+"".ip Ïtype.net.IP "".network Ïtype.string "".dialer Ÿ type.*net.Dialer "".~r2 @type.error "".~r1  type.net.Conn "".dest  ntype.github.com/v2ray/v2ray-core/common/net.Destination <)À¸¿À°¿ÀŞ¿ÀG¿ Ğ
+ T M\M¤U8‚Å
+‚Å+ B e¶†UeÄ—
+œ—& TgclocalsÂ·8f81326d698f32b0373d1ec92803540a TgclocalsÂ·aa80854807c7f78b25345d63aef2e9d4   ¸C:/Users/SharpRain/workarea/v2ray/src/github.com/v2ray/v2ray-core/transport/dialer/dialer.goş"".init  €  €eH‹%(   H‹‰    H;a†›   Hƒì ¶    €û t¶    €ûuHƒÄ Ãè    Æ    è    è    è    H    H‰$HÇD$   è    H‹\$H‰    H‹\$€=     uH‰    Æ    HƒÄ ÃH-    H‰,$H‰\$è    ëİè    éAÿÿÿÌ"      B  "".initdoneÂ·   Z  "".initdoneÂ·   x  "runtime.throwinit   ˆ "".initdoneÂ·   ”  net.init     time.init   ¨  Vgithub.com/v2ray/v2ray-core/common/net.init   ¶  2go.string."Invalid Host."   Ú  errors.New   ò  &"".ErrorInvalidHost   ˆ (runtime.writeBarrier   œ &"".ErrorInvalidHost   ¨ "".initdoneÂ·   Â &"".ErrorInvalidHost   Ş  .runtime.writebarrierptr   ì  0runtime.morestack_noctxt    @   @?@b?@? À RX7:878  ;… TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb TgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb   ¸C:/Users/SharpRain/workarea/v2ray/src/github.com/v2ray/v2ray-core/transport/dialer/dialer.goş>:go.itab.*net.TCPConn.net.Conn     ş>:go.itab.*net.UDPConn.net.Conn     ş&go.string.hdr."tcp"                       go.string."tcp"   şgo.string."tcp"   tcp  ş&go.string.hdr."udp"                       go.string."udp"   şgo.string."udp"   udp  şTgclocalsÂ·aa80854807c7f78b25345d63aef2e9d4 P  P          ! 8  8               şTgclocalsÂ·8f81326d698f32b0373d1ec92803540a P  P                               ş:go.string.hdr."Invalid Host."                       2go.string."Invalid Host."   ş2go.string."Invalid Host."    Invalid Host.  şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           şTgclocalsÂ·33cdeccccebe80329f1fdbee7f5874cb           ş<&"".ErrorInvalidHost   type.error   ş>"".initdoneÂ·  type.uint8   ş"".DialÂ·f              "".Dial   ş"".initÂ·f              "".init   ş,go.string.hdr."errors"                       $go.string."errors"   ş$go.string."errors"   errors  ş*go.importpath.errors.                       $go.string."errors"   ş&go.string.hdr."net"                       go.string."net"   şgo.string."net"   net  ş$go.importpath.net.                       go.string."net"   ş(go.string.hdr."time"                        go.string."time"   ş go.string."time"   
+time  ş&go.importpath.time.                        go.string."time"   şlgo.string.hdr."github.com/v2ray/v2ray-core/common/net"             &          dgo.string."github.com/v2ray/v2ray-core/common/net"   şdgo.string."github.com/v2ray/v2ray-core/common/net" P  Ngithub.com/v2ray/v2ray-core/common/net  şjgo.importpath.github.com/v2ray/v2ray-core/common/net.             &          dgo.string."github.com/v2ray/v2ray-core/common/net"   ÿÿgo13ld
